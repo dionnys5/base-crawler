@@ -1,5 +1,7 @@
 ## Como instalar Scrapy no Windows
 
+Para instalar as dependências e a biblioteca Scrapy utilize o gerenciados de pacotes python PIP a instalação é feita através da linha de comando (CMD). 
+
 1. Instalar Twisted utilizando o arquivo whl da versão python instalada, os arquivos de instalação podem ser encontrados no site: https://www.lfd.uci.edu/~gohlke/pythonlibs/#twisted
 
 2. Instalar Scrapy usando pip -> pip install scrapy
