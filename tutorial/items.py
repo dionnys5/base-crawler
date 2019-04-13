@@ -8,6 +8,10 @@
 import scrapy
 
 
+def tokenizador(value):
+    return value.split(' ')
+
+
 class TutorialItem(scrapy.Item):
-    # define the fields for your item here like:
-    quote = scrapy.Field()
+    quote = scrapy.Field(serializer=tokenizador)
+    autor = scrapy.Field()
