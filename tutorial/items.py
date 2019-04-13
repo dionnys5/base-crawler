@@ -9,6 +9,11 @@ import scrapy
 
 
 def tokenizador(value):
+    """
+
+    :param value:
+    :return: Uma lista com as palavras com base nas palavras da frase Value, separa com base nos espaços
+    """
     return value.split(' ')
 
 

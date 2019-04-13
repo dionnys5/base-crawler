@@ -3,12 +3,17 @@ from tutorial.items import TutorialItem
 
 
 class QuotesSpider(scrapy.Spider):
+    """
+    A :class QuostesSpider: é composta pelos parâmetros e lógica da seleção e coleta de dados de uma página HTML.
+    """
     name = "quotes"
 
     start_urls = [
         'http://quotes.toscrape.com/'
     ]
 
+    # Lembrar de sempre colocar nomes significativos para os arquivos de saída.
+    # Para testes sempre apagar a pasta criada definida em JOBDIR
     custom_settings = {
         'ITEM_PIPELINES': {
             'tutorial.pipelines.TutorialPipeline': 400
@@ -19,21 +24,18 @@ class QuotesSpider(scrapy.Spider):
         'FEED_URI': 'tutorial_resultados_2.csv'
     }
 
-    # def parse(self, response):
-    #     item = TutorialItem()
-    #     quotes = response.css('span.text::text').extract()
-    #     for q in quotes:
-    #         item['quote'] = q.strip('\n“”\'\"')
-    #         yield item
+    def parse(self, response):
+        '''
+        :param response: Que é o valor do conteúdo da página visitada a partir das start_urls
+        :return: Objeto da classe TutorialItem que define a estrutura de dados coletados
+        '''
+        item = TutorialItem()
+        for quote in response.css("div.quote"):
+            item['quote'] = quote.css("span.text::text").get()
+            item['autor'] = quote.css("small.author::text").get()
+            yield item
 
-    # def parse(self, response):
-    #     item = TutorialItem()
-    #     for quote in response.css("div.quote"):
-    #         item['quote'] = quote.css("span.text::text").get()
-    #         item['autor'] = quote.css("small.author::text").get()
-    #         yield item
-    #
-    #     next_page = response.css('li.next a::attr(href)').get()
-    #     if next_page is not None:
-    #         next_page = response.urljoin(next_page)
-    #         yield scrapy.Request(next_page, callback=self.parse)
+        next_page = response.css('li.next a::attr(href)').get()
+        if next_page is not None:
+            next_page = response.urljoin(next_page)
+            yield scrapy.Request(next_page, callback=self.parse)
