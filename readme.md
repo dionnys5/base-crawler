@@ -32,5 +32,8 @@ O comando genspider cria um novo spider/crawler na pasta spiders do projeto.
 
 O comando crawl executa um spider.
 
+ 
+## Referências
+
 Para mais detalhes sobre configurações de projeto use sempre como referência a documentação oficial: https://docs.scrapy.org/en/latest/index.html
 
